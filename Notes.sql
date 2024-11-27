@@ -54,7 +54,7 @@ Query OK, 0 rows affected (0.12 sec)
 => insert data into exist table
 -- insert into student (col1 , col2) values '11','avinash');
 -- insert into student values ('11','avinash');
- Query OK, 1 row affected (0.01 sec)
+ Query OK, 1 row affected (0.01 sec) 
 
  => create table student1 (sid varchar(10) primary key,
     sname varchar(20)
