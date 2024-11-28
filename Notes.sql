@@ -72,12 +72,13 @@ Query OK, 0 rows affected (0.12 sec)
 
 ==> create a composite key
 
--- create table student2(
---       sid varchar(5),
---       sname varchar(10),
---       scontact varchar(10),
---       PRIMARY KEY (sid,sname)
---     );
+/* create table student2(
+      sid varchar(5),
+      sname varchar(10),
+      scontact varchar(10),
+      PRIMARY KEY (sid,sname)
+    ); 
+*/    
 
 Query OK, 0 rows affected (0.02 sec)
 
@@ -285,3 +286,21 @@ Empty set (0.00 sec)
 mysql> select * from stud3;
 ERROR 1146 (42S02): Table 'test.stud3' doesnt exist
 
+/* 
+    create table student1(
+        id int primary key,
+        name varchar(20),
+        marks int
+    );
+*/
+
+/*
+    insert into student1
+    (id,name,marks)
+    values
+    (1,'avinash',77),
+    (2,'milan',null),
+    (3,'ugam',80),
+    (4,'brij',100),
+    (5,'swati',90);
+*/
