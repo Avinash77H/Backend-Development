@@ -112,7 +112,7 @@ Query OK, 0 rows affected (0.02 sec)
 -- -- where clause
 
 -- mysql> select * from stud1
---        where name = 'avinash';
+    --    where name = 'avinash'; 
 
 +----+---------+
 | id | name    |
