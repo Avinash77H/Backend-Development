@@ -286,13 +286,7 @@ Empty set (0.00 sec)
 mysql> select * from stud3;
 ERROR 1146 (42S02): Table 'test.stud3' doesnt exist
 
-/* 
-    create table student1(
-        id int primary key,
-        name varchar(20),
-        marks int
-    );
-*/
+
 
 /*
     insert into student1
@@ -309,13 +303,96 @@ ERROR 1146 (42S02): Table 'test.stud3' doesnt exist
 
 -- create table as CLIENT_MASTER -- 
  
+ /*
  create table client_master(
     CLIENTNO varchar(6) primary key,
     NAME varchar(20)  not null,
     ADDRESH1 varchar(30),
     ADDRESH2 varchar(30),
     CITY  varchar(15),
-    PINCODE 
-    STATE 
-    BALDUE 
+    PINCODE numeric(8),
+    STATE varchar(15),
+    BALDUE numeric(10,2)
  );
+*/
+
+/*
+insert into client_master
+values 
+('C00001','Ivan Bayross','Mumbai','Mumbai','Mumbai',400054,'Maharashtra',15000),
+('C00002','Mamta Muzumdar','Madras','Madras','Madras',780001,'Tamil Nadu',0),
+('C00003','Chhaya Bankar','Mumbai','Mumbai','Mumbai',400057,'Maharashtra',5000),
+('C00004','Ashwini Joshi','Bangalore','Bangalore','Bangalore',560001,'Karnataka',0),
+('C00005','Hansel Colaco','Mumbai','Mumbai','Mumbai',400060,'Maharashtra',2000),
+('C00006','Deepak Sharma','Mangalore','Mangalore','Mangalore',560050,'Karnataka',0);
+*/
+
+/*
+create table product_master(
+    PRODUCTNO varchar(6) primary key,
+    DESCRIPTION varchar(15) not null,
+    PROFITPERCENT numeric(4,2) not null,
+    UNITMEASURE varchar(10) not null,
+    QTYONHAND numeric(8) not null,
+    REORDERLVL numeric(8) not null,
+    SELLPRICE decimal(8,2) not null,
+    COSTPRICE decimal(8,2) not null
+);
+*/
+
+/*
+insert into product_master
+values
+('P00001','T-Shirt',5,'Piece',200,50,350,250),
+('P00345','Shirt',6,'Piece',150,50,500,350),
+('P06734','Cotton Jeans',5,'Piece',100,20,600,450),
+('P07865','Jeans',5,'Piece',100,20,750,500),
+('P07868','Trousers',2,'Piece',150,50,850,550),
+('P07885','Pull Overs',2.5,'Piece',80,30,700,450),
+('P07965','Denim Shirts',4,'Piece',100,40,350,250),
+('P07975','Lycra Tops',5,'Piece',70,30,300,175),
+('P08865','Skirts',5,'Piece',75,30,450,300);
+*/
+/*
+create table salesman_master(
+    SALESMANNO varchar(6) primary key,
+    SALESMANNAME varchar(20) not null,
+    ADDRESS1 varchar(30) not null,
+    ADDRESH2 varchar(30) ,
+    CITY varchar(20),
+    PINCODE numeric(8),
+    STATE varchar(20),
+    SALAMT numeric(8,2) not null,
+    TGTTOGET numeric(6,2) not null,
+    YTDSALES numeric(6,2) not null,
+    REMARKS varchar(60)
+);
+*/
+
+/*
+create table sales_order(
+    ORDERNO varchar(6) primary key,
+    CLIENTNO varchar(6),
+    ORDERDATE date not null,
+    DELYADDR varchar(25),
+    SALESMANNO varchar(6),
+    DELYTYPE char default 'F',
+    BILLYN char,
+    DELYDATE date,
+    ORDERSTATUS varchar(10) check(ORDERSTATUS in ('in process','fulfilled','backorder','cancelled')),
+    foreign key (CLIENTNO) references client_master(CLIENTNO),
+    foreign key (SALESMANNO) references salesman_master(SALESMANNO)
+);
+*/
+
+/*
+create table sales_order_details(
+    ORDERNO varchar(6),
+    PRODUCTNO varchar(6),
+    QTYORDERED numeric(8),
+    QTYDISP numeric(8),
+    PRODUCTRATE numeric(10,2),
+    foreign key (ORDERNO) references sales_order(ORDERNO),
+    foreign key (PRODUCTNO) references product_master (PRODUCTNO)
+);
+*/
