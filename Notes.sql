@@ -304,3 +304,18 @@ ERROR 1146 (42S02): Table 'test.stud3' doesnt exist
     (4,'brij',100),
     (5,'swati',90);
 */
+
+-- 29.11.2024 --
+
+-- create table as CLIENT_MASTER -- 
+ 
+ create table client_master(
+    CLIENTNO varchar(6) primary key,
+    NAME varchar(20)  not null,
+    ADDRESH1 varchar(30),
+    ADDRESH2 varchar(30),
+    CITY  varchar(15),
+    PINCODE 
+    STATE 
+    BALDUE 
+ );
