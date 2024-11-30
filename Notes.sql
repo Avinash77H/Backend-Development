@@ -299,3 +299,61 @@ ERROR 1146 (42S02): Table 'test.stud3' doesnt exist
     (5,'swati',90);
 */
 
+----- 29.11.2024 -----
+
+create table course(
+    c_id varchar(10),
+    c_name varchar(20),
+    primary key (c_id)
+);
+
+insert into course
+values
+('C001','Web Development'),
+('C002','App Development'),
+('C003','Spoken English'),
+('C004','UX-design'),
+('C005','Dev-ops');
+
+
+
+create table student(
+    s_id varchar(10),
+    s_name varchar(20),
+    primary key(s_id)
+);
+
+insert into student
+values
+('S001','avinash'),
+('S002','milan'),
+('S003','ugam'),
+('S004','sagar'),
+('S005','prakash'),
+('S006','chetan'),
+('S007','girish');
+
+
+
+create table conf_student(
+    id varchar(10),
+    s_id varchar(10),
+    c_id varchar(10),
+    constraint pk primary key(id),
+    constraint fk_stud foreign key(s_id) references student(s_id),
+    constraint fk_course foreign key(c_id) references course(c_id),
+    constraint chk_id check (id like 'C%')
+);
+
+insert into conf_student
+values
+('C1','S004','C002'),
+('C2','S001','C001'),
+('C3','S003','C004'),
+('C4','S001','C002'),
+('C5','S001','C003');
+
+
+
+
+
