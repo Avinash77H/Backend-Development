@@ -168,26 +168,40 @@ values
 
 --> Exercise on deleting records in a table
 
+/*
+--> Delete all salesman from the salesman_master whose salaries are equal to RS.3500
+
 delete from sales_order_details
-where ORDERNO = (select ORDERNO from sales_order where ORDERNO = )
+where ORDERNO = (select ORDERNO from sales_order where SALESMANNO = (select SALESMANNO from salesman_master where SALAMT = 3500));
 
 delete from sales_order
 where SALESMANNO = (select SALESMANNO from salesman_master where SALAMT = 3500);
 
 delete from salesman_master
 where SALAMT = 3500;
+*/
 
+--> Delete all products from product_master where the quantity on hand is equal to 100.
 
+/*
 delete from sales_order_details
-where PRODUCTNO = (select PRODUCTNO from product_master where QTYONHAND = 100);
+where PRODUCTNO In (select PRODUCTNO from product_master where QTYONHAND = 100);
 
 delete from product_master
 where QTYONHAND = 100;
+*/
 
 
+--> Delete from Client_master where the column state holds the value 'Tamil Nadu'.
+
+/*
+delete from sales_order_details
+where ORDERNO = (select ORDERNO from sales_order 
+where CLIENTNO = (select CLIENTNO from Client_master  where STATE = 'Tamil Nadu'));
 
 delete from sales_order
 where CLIENTNO = (select CLIENTNO from client_master where STATE = 'Tamil Nadu');
 
 delete from client_master
 where STATE = 'Tamil Nadu';
+*/
