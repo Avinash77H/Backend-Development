@@ -75,3 +75,24 @@ where  rsid = 's001');
 select cname from course
 where cid in (select rcid from registered_student
 where rsid = 's002');
+
+
+create table employee(
+  empId int primary key,
+  name varchar(20),
+  age int,
+  salary float(7,2)
+);
+
+insert into employee
+(empId,name,age,salary)
+values
+(007,'sahil',38,55000.00),
+(003,'ugam',17,90000.00),
+(004,'chetan',null,15000.00),
+(005,'abhishek',10,44000.00);
+
+update employee
+set salary = (0.1 * salary) + salary
+-- set salary = salary * 1.10
+where age > 38;
