@@ -345,13 +345,11 @@ create table conf_student(
     constraint chk_id check (id like 'C%')
 );
 
-insert into conf_student
-values
-('C1','S004','C002'),
-('C2','S001','C001'),
-('C3','S003','C004'),
-('C4','S001','C002'),
-('C5','S001','C003');
+--> Here pk,fk_stud,fk_course and chk_id is called matadata.
+--> Error Messages: If a constraint is violated, the database will reference the constraint name in the error message (e.g., "Violation of foreign key constraint fk_stud").
+--> Database Management: These names make it easier for developers and database administrators to identify, modify, or drop specific constraints.
+
+
 
 
 
