@@ -146,3 +146,75 @@ set
   salary = (0.1 * salary) + salary -- set salary = salary * 1.10
 where
   age > 38;
+
+
+  ----- 03.12.2024 -----
+
+  create table student(
+    id int primary key,
+    name varchar(20),
+    marks int 
+  );
+
+  insert into student
+  (id,name,marks)
+  values
+  (1,'avinash',77),
+  (2,'milan',98),
+  (3,'ugam',88),
+  (4,'chetan',86),
+  (6,'smit',50),
+  (7,'javed',35),
+  (8,'rima',60);
+
+  insert into student(id,name,marks)
+  values
+  (5,'anuj');
+
+  insert into student(id,name,marks)
+  values
+  (10,'zaviour',100);
+
+drop marks from student
+where id = 8;
+
+  update student
+  set marks = null
+  where name = 'rima';
+
+  alter table student
+  add column age int; 
+
+
+  create table course(
+    id int primary key,
+    cname varchar(20)
+  );
+
+  insert into course
+  values
+  (1,'html'),
+  (2,'css'),
+  (3,'javascript'),
+  (4,'react'),
+  (5,'mysql');
+
+  create table batch(
+    bid int primary key,
+    stdid int ,
+    cid int,
+    constraint student_id foreign key(stdid) references  student(id),
+    constraint course_id foreign key(cid)
+    references course(id)
+  );
+
+  insert into batch
+  values
+  (01,2,1),
+  (02,1,3);
+
+  select * from student
+  inner join course
+  on student.id = course.id;
+
+  
