@@ -167,25 +167,6 @@ where
   (7,'javed',35),
   (8,'rima',60);
 
-  insert into student(id,name,marks)
-  values
-  (5,'anuj');
-
-  insert into student(id,name,marks)
-  values
-  (10,'zaviour',100);
-
-drop marks from student
-where id = 8;
-
-  update student
-  set marks = null
-  where name = 'rima';
-
-  alter table student
-  add column age int; 
-
-
   create table course(
     id int primary key,
     cname varchar(20)
@@ -211,10 +192,68 @@ where id = 8;
   insert into batch
   values
   (01,2,1),
-  (02,1,3);
+  (02,1,3),
+  (03,2,3),
+  (04,7,5);
 
   select * from student
   inner join course
   on student.id = course.id;
 
+  ---- 04.12.2024 ---- 
   
+  ---> inner join
+
+  /*
+    select columns from table1
+    inner join from table2
+    to table1.column_name = table2.column_name
+    where .....
+    order by .....; 
+  */
+
+    create table city(
+    cid varchar(20) primary key,
+    cname varchar(20)
+  );
+
+  insert into city
+  (cid,cname)
+  values
+  ('c1','junagadh'),
+  ('c2','delhi'),
+  ('c3','visavadar'),
+  ('c4','amareli'),
+  ('c5','rajkot'),
+  ('c6','surat'),
+  ('c7','ankleshwar');
+
+  create table student(
+    sid int primary key,
+    name varchar(200),
+    age int,
+    city varchar(20),
+    constraint city_name foreign key(city) references city(cid)
+  );
+
+  insert into student
+  (sid,name,age,city)
+  values
+  (101,'avinash',24,'c1'),
+  (102,'ugam',25,'c2'),
+  (104,'sahil',20,null),
+  (105,'mehul',30,'c7'),
+  (106,'vinayak',32,null);
+
+select s.sid,s.name,s.age,cname from student as s   
+left join city
+on s.city = city.cid;
+
+select * from student as s   
+left join city
+on s.city = city.cid;
+
+select * from student as s   
+right join city
+on s.city = city.cid
+order by cname;
