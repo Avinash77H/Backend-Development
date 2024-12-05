@@ -329,7 +329,7 @@ order by c.cid;
   constraint fk_student_city foreign key(city) references city(cid)
  );
 
- insert into student
+ insert into  student
  values
  (1,'Ram Kumar',19,1,1),
  (2,'Salman Khan',18,3,2),
