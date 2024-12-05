@@ -257,3 +257,38 @@ select * from student as s
 right join city
 on s.city = city.cid
 order by cname;
+
+
+---- 05.12.2024 ----
+
+  /* inner join or join */
+select s.sid , s.name ,s.age,c.cname from student as S
+ join city as C
+on s.city = c.cid
+order by c.cid;
+
+  /* left join */
+
+  select * from student
+  left join city
+  on student.city = city.cid
+  order by name;
+
+  /* right join */
+
+  select * from student
+  right join city 
+  on student.city = city.cid
+  order by city.cname;
+
+  /* cross join*/
+
+  select * from student 
+  cross join city;
+
+  /* add new column */
+
+  alter table student
+  add courses int, 
+  add constraint fk_courses foreign key
+  (courses) references courses(crid);

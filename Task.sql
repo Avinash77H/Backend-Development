@@ -1,143 +1,115 @@
--- 29.11.2024 --
 
--- create table as CLIENT_MASTER -- 
- 
- /*
- create table client_master(
-    CLIENTNO varchar(6) primary key,
-    NAME varchar(20)  not null,
-    ADDRESH1 varchar(30),
-    ADDRESH2 varchar(30),
-    CITY  varchar(15),
-    PINCODE numeric(8),
-    STATE varchar(15),
-    BALDUE numeric(10,2)
- );
-*/
+create table client_master(
+    client_no varchar(6) ,
+    name varchar(20),
+    address1 varchar(30),
+    address2 varchar(30),
+    city varchar(15),
+    pincode numeric(8),
+    state varchar(15),
+    bal_due numeric(10,2),
+    constraint pk_client_no primary key(client_no)
+);
 
-/*
-insert into client_master
-values 
-('C00001','Ivan Bayross','Mumbai','Mumbai','Mumbai',400054,'Maharashtra',15000),
-('C00002','Mamta Muzumdar','Madras','Madras','Madras',780001,'Tamil Nadu',0),
-('C00003','Chhaya Bankar','Mumbai','Mumbai','Mumbai',400057,'Maharashtra',5000),
-('C00004','Ashwini Joshi','Bangalore','Bangalore','Bangalore',560001,'Karnataka',0),
-('C00005','Hansel Colaco','Mumbai','Mumbai','Mumbai',400060,'Maharashtra',2000),
-('C00006','Deepak Sharma','Mangalore','Mangalore','Mangalore',560050,'Karnataka',0);
-*/
+insert into client_master values('C00001', 'Ivan Bayross', 'A', '5', 'Mumbai', 400054, 'Maharashtra', 15000);
+insert into client_master values('C00002', 'Mamta Muzumdar', 'C', '10', 'Madras', 780001, 'Tamil Nadu', 0);
+insert into client_master values('C00003', 'Chhaya Bankar', 'B', '7', 'Mumbai', 400057, 'Maharashtra', 5000);
+insert into client_master values('C00004', 'Ashwini Joshi', 'E', '2', 'Bangalore', 560001, 'Karnataka', 0);
+insert into client_master values('C00005', 'Hansel Colaco', 'A', '2', 'Mumbai', 400060, 'Maharashtra', 2000);
+insert into client_master values('C00006', 'Deepak Sharma', 'B', '3', 'Mangalore', 560050, 'Karnataka', 0);
 
-/*
+
 create table product_master(
-    PRODUCTNO varchar(6) primary key,
-    DESCRIPTION varchar(15) not null,
-    PROFITPERCENT numeric(4,2) not null,
-    UNITMEASURE varchar(10) not null,
-    QTYONHAND numeric(8) not null,
-    REORDERLVL numeric(8) not null,
-    SELLPRICE decimal(8,2) not null,
-    COSTPRICE decimal(8,2) not null
+    product_no varchar(6) ,
+    description varchar(15),
+    profit_percent numeric(4,2),
+    unit_measure varchar(10),
+    qty_on_hand numeric(8),
+    reorder_lvl numeric(8),
+    sell_price numeric(8,2),
+    cost_price numeric(8,2),
+    constraint pk_product_no primary key(product_no)
 );
-*/
 
-/*
-insert into product_master
-values
-('P00001','T-Shirt',5,'Piece',200,50,350,250),
-('P00345','Shirt',6,'Piece',150,50,500,350),
-('P03453','Kargo',6,'Piece',150,50,500,350),
-('P06734','Cotton Jeans',5,'Piece',100,20,600,450),
-('P07865','Jeans',5,'Piece',100,20,750,500),
-('P07868','Trousers',2,'Piece',150,50,850,550),
-('P07885','Pull Overs',2.5,'Piece',80,30,700,450),
-('P07965','Denim Shirts',4,'Piece',100,40,350,250),
-('P07975','Lycra Tops',5,'Piece',70,30,300,175),
-('P07956','lengho',5,'Piece',70,30,300,175),
-('P08865','Skirts',5,'Piece',75,30,450,300);
-*/
-/*
+insert into product_master values('P00001', 'T-Shirts', 5, 'Piece', 200, 50, 350, 250);
+insert into product_master values('P0345', 'Shirts', 6, 'Piece', 150, 50, 500, 350);
+insert into product_master values('P06734', 'Cotton Jeans', 5, 'Piece', 100, 20, 600, 450);
+insert into product_master values('P07865', 'Jeans', 5, 'Piece', 100, 20, 750, 500);
+insert into product_master values('P07868', 'Trousers', 2, 'Piece', 150, 50, 850, 550);
+insert into product_master values('P07885', 'Pull Overs', 2.5, 'Piece', 80, 30, 700, 450);
+insert into product_master values('P07965', 'Denim Shirts', 4, 'Piece', 100, 40, 350, 250);
+insert into product_master values('P07975', 'Lycra Tops', 5, 'Piece', 70, 30, 300, 175);
+insert into product_master values('P08865', 'Skirts', 5, 'Piece', 75, 30, 450, 300);
+
+
 create table salesman_master(
-    SALESMANNO varchar(6) primary key,
-    SALESMANNAME varchar(20) not null,
-    ADDRESS1 varchar(30) not null,
-    ADDRESH2 varchar(30) ,
-    CITY varchar(20),
-    PINCODE numeric(8),
-    STATE varchar(20),
-    SALAMT numeric(8,2) not null,
-    TGTTOGET numeric(6,2) not null,
-    YTDSALES numeric(6,2) not null,
-    REMARKS varchar(60)
+    salesman_no varchar(6),
+    salesman_name varchar(20),
+    address1 varchar(30),
+    address2 varchar(30),
+    city varchar(20),
+    pincode numeric(8),
+    state varchar(20),
+    sal_amt numeric(8,2),
+    tgt_to_get numeric(6,2),
+    ytd_sales numeric(6,2),
+    remarks varchar(60),
+    constraint pk_salesman_no primary key(salesman_no)
 );
-*/
 
-/*
-insert into salesman_master
-values
-('S00001','Aman','A/14','Worli','Mumbai',400002,'Maharashtra',3000,100,50,'Good'),
-('S00002','Omkar','65','Nariman','Mumbai',400001,'Maharashtra',3000,200,100,'Good'),
-('S00003','Raj','P-7','Bandra','Mumbai',400032,'Maharashtra',3000,200,100,'Good'),
-('S00004','Ashish','A/5','Juhu','Mumbai',400044,'Maharashtra',3500,200,150,'Good');
-*/
+insert into salesman_master values('S00001', 'Aman', 'A/14', 'Worli', 'Mumbai', 400002, 'Maharashtra', 3000, 100, 50, 'Good');
+insert into salesman_master values('S00002', 'Omkar', '65', 'Nariman', 'Mumbai', 400001, 'Maharashtra', 3000, 200, 100, 'Good');
+insert into salesman_master values('S00003', 'Raj', 'P-7', 'Bandra', 'Mumbai', 400032, 'Maharashtra', 3000, 200, 100, 'Good');
+insert into salesman_master values('S00004', 'Ashish', 'A/5', 'Juhu', 'Mumbai', 400044, 'Maharashtra', 3500, 200, 150, 'Good');
 
-/*
+
 create table sales_order(
-    ORDERNO varchar(6) primary key,
-    CLIENTNO varchar(6),
-    ORDERDATE date not null,
-    DELYADDR varchar(25),
-    SALESMANNO varchar(6),
-    DELYTYPE char default 'F',
-    BILLYN char,
-    DELYDATE date,
-    ORDERSTATUS varchar(10) check(ORDERSTATUS in ('in process','fulfilled','backorder','cancelled')),
-    foreign key (CLIENTNO) references client_master(CLIENTNO),
-    foreign key (SALESMANNO) references salesman_master(SALESMANNO)
+    order_no varchar(6),
+    client_no varchar(6),
+    order_date date NOT NULL,
+    dely_addr varchar(25),
+    salesman_no varchar(6),
+    dely_type char(1),
+    bill_yn char(1),
+    dely_date date,
+    order_status varchar(10),
+    constraint pk_order_no primary key(order_no),
+    CONSTRAINT CHK_order_no CHECK (order_no LIKE 'O%'),
+    CONSTRAINT FK_CLIENT_ID FOREIGN KEY (client_no) REFERENCES client_master(client_no),
+    CONSTRAINT FK_SALESMAN_ID FOREIGN KEY (salesman_no) REFERENCES salesman_master(salesman_no),
+    CONSTRAINT CHK_order_status CHECK ((order_status = "In Process") || (order_status = "Fulfilled") || (order_status = "BackOrder") || (order_status = "Cancelled"))
 );
-*/
 
-/*
-insert into sales_order
-values
-('O19001','C00001','2004-06-12',null,'S00001','F','N','2002-07-20','In Process'),
-('O19002','C00002','2004-06-25',null,'S00002','P','N','2002-07-27','Cancelled'),
-('O46865','C00003','2004-02-18',null,'S00003','F','Y','2002-02-20','Fulfilled'),
-('O19003','C00001','2004-04-03',null,'S00001','F','Y','2002-04-07','Fulfilled'),
-('O46866','C00004','2004-05-20',null,'S00002','P','N','2002-05-22','Cancelled'),
-('O19008','C00005','2004-05-24',null,'S00004','F','N','2002-07-26','In Process');
-*/
+insert into sales_order values('O19001', 'C00001', '04-06-12', 'Mumbai', 'S00001', 'F', 'N', '02-07-20', 'In Process');
+insert into sales_order values('O19002', 'C00002', '04-06-25', 'Surat', 'S00002', 'P', 'N', '02-06-27', 'Cancelled');
+insert into sales_order values('O46865', 'C00003', '04-02-18', 'Mumbai', 'S00003', 'F', 'Y', '02-02-20', 'Fulfilled');
+insert into sales_order values('O19003', 'C00001', '04-04-03', 'Pune', 'S00001', 'F', 'Y', '02-04-07', 'Fulfilled');
+insert into sales_order values('O46866', 'C00004', '04-05-20', 'Pune', 'S00002', 'P', 'N', '02-05-22', 'Cancelled');
+insert into sales_order values('O19008', 'C00005', '04-05-24', 'Mumbai', 'S00004', 'F', 'N', '02-07-26', 'In Process');
 
-/*
 create table sales_order_details(
-    ORDERNO varchar(6),
-    PRODUCTNO varchar(6),
-    QTYORDERED numeric(8),
-    QTYDISP numeric(8),
-    PRODUCTRATE numeric(10,2),
-    foreign key (ORDERNO) references sales_order(ORDERNO),
-    foreign key (PRODUCTNO) references product_master (PRODUCTNO)
+    order_no varchar(6),
+    product_no varchar(6),
+    qty_ordered numeric(8),
+    qty_disp numeric(8),
+    product_rate numeric(10,2),
+    CONSTRAINT FK_order_no FOREIGN KEY (order_no) REFERENCES sales_order(order_no),
+    CONSTRAINT FK_product_no FOREIGN KEY (product_no) REFERENCES product_master(product_no)
 );
-*/
 
-/*
-insert into sales_order_details
-values
-('O19001','P00001',4,4,525),
-('O19001','P07956',2,1,8400),
-('O19001','P07885',2,1,5250),
-('O19002','P00001',10,0,525),
-('O46865','P07868',3,3,3150),
-('O46865','P07885',3,1,5250),
-('O46865','P00001',10,10,525),
-('O46865','P00345',4,4,1050),
-('O19003','P03453',2,2,1050),
-('O19003','P06734',1,1,12000),
-('O46866','P07965',1,0,8400),
-('O46866','P07975',1,0,1050),
-('O19008','P00001',10,5,525),
-('O19008','P07975',5,3,1050);
-*/
-
-
+insert into sales_order_details values('O19001', 'P00001', 4, 4, 525);
+insert into sales_order_details values('O19001', 'P07965', 2, 1, 8400);
+insert into sales_order_details values('O19001', 'P07885', 2, 1, 5250);
+insert into sales_order_details values('O19002', 'P00001', 10, 0, 525);
+insert into sales_order_details values('O46865', 'P07868', 3, 3, 3150);
+insert into sales_order_details values('O46865', 'P07885', 3, 1, 5250);
+insert into sales_order_details values('O46865', 'P00001', 10, 10, 525);
+insert into sales_order_details values('O46865', 'P0345', 4, 4, 1050);
+insert into sales_order_details values('O19003', 'P03453', 2, 2, 1050);
+insert into sales_order_details values('O19003', 'P06734', 1, 1, 12000);
+insert into sales_order_details values('O46866', 'P07965', 1, 0, 8400);
+insert into sales_order_details values('O19008', 'P00001', 10, 5, 525);
+insert into sales_order_details values('O19008', 'P07975', 5, 3, 1050);
 
 ----- task ------
 
@@ -148,23 +120,27 @@ values
 -- select NAME,CITY,STATE from client_master;
 -- select DESCRIPTION from product_master;
 -- select NAME from client_master where CITY = 'Mumbai';
---  select SALESMANNAME from salesman_master where SALAMT = 3000;
+--  select salesman_name from salesman_master where sal_amt = 3000;
 
 
 --> Exercise on updating records in a table
 
--- update client_master 
--- set CITY = 'Bangalore' where CLIENTNO = 'C00005'; 
+/* 
 
--- update client_master 
--- set BALDUE = 1000 where CLIENTNO = 'C00001';
+update client_master 
+ set CITY = 'Bangalore' where client_no = 'C00005'; 
 
--- update product_master
--- set COSTPRICE = 950.00 where DESCRIPTION ='Trousers';
 
--- update salesman_master
--- set CITY = 'Pune';
+ update client_master 
+ set bal_due = 1000 where client_no = 'C00001';
 
+ update product_master
+ set cost_price = 950.00 where DESCRIPTION ='Trousers';
+
+ update salesman_master
+ set CITY = 'Pune';
+
+ */
 
 --> Exercise on deleting records in a table
 
@@ -172,23 +148,23 @@ values
 --> Delete all salesman from the salesman_master whose salaries are equal to RS.3500
 
 delete from sales_order_details
-where ORDERNO = (select ORDERNO from sales_order where SALESMANNO = (select SALESMANNO from salesman_master where SALAMT = 3500));
+where ORDER_NO = (select ORDER_NO from sales_order where SALESMAN_NO = (select SALESMAN_NO from salesman_master where SAL_AMT = 3500));
 
 delete from sales_order
-where SALESMANNO = (select SALESMANNO from salesman_master where SALAMT = 3500);
+where SALESMAN_NO = (select SALESMAN_NO from salesman_master where SAL_AMT = 3500);
 
 delete from salesman_master
-where SALAMT = 3500;
+where SAL_AMT = 3500;
 */
 
 --> Delete all products from product_master where the quantity on hand is equal to 100.
 
 /*
 delete from sales_order_details
-where PRODUCTNO In (select PRODUCTNO from product_master where QTYONHAND = 100);
+where PRODUCT_NO In (select PRODUCT_NO from product_master where QTY_ON_HAND = 100);
 
 delete from product_master
-where QTYONHAND = 100;
+where QTY_ON_HAND = 100;
 */
 
 
@@ -196,11 +172,11 @@ where QTYONHAND = 100;
 
 /*
 delete from sales_order_details
-where ORDERNO = (select ORDERNO from sales_order 
-where CLIENTNO = (select CLIENTNO from Client_master  where STATE = 'Tamil Nadu'));
+where ORDER_NO = (select ORDER_NO from sales_order 
+where CLIENT_NO = (select CLIENT_NO from Client_master  where STATE = 'Tamil Nadu'));
 
 delete from sales_order
-where CLIENTNO = (select CLIENTNO from client_master where STATE = 'Tamil Nadu');
+where CLIENT_NO = (select CLIENT_NO from client_master where STATE = 'Tamil Nadu');
 
 delete from client_master
 where STATE = 'Tamil Nadu';
