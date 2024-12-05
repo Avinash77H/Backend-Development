@@ -286,9 +286,67 @@ order by c.cid;
   select * from student 
   cross join city;
 
-  /* add new column */
 
-  alter table student
-  add courses int, 
-  add constraint fk_courses foreign key
-  (courses) references courses(crid);
+ --- city table ---
+
+  create table city(
+    cid int ,
+    city varchar(20),
+    constraint pk_city_id primary key(cid)
+  );
+
+  insert into city
+  values
+  (1,'Agra'),
+  (2,'Bhopal'),
+  (3,'Delhi'),
+  (4,'Noida');
+
+  --- courses table ---
+
+  create table courses(
+    crid int,
+    course varchar(20),
+    constraint pk_course_id primary key(crid)
+  );
+
+  insert into courses
+  values
+  (1,'Btech'),
+  (2,'BCA'),
+  (3,'BBA');
+
+
+ --- student table ----
+ create table student(
+  id int,
+  name varchar(20),
+  age int ,
+  courses int,
+  city int,
+  constraint pk_student_id primary key(id),
+   constraint fk_student_courses foreign key(courses) references courses(crid),
+  constraint fk_student_city foreign key(city) references city(cid)
+ );
+
+ insert into student
+ values
+ (1,'Ram Kumar',19,1,1),
+ (2,'Salman Khan',18,3,2),
+ (3,'Meera Khan',19,1,1),
+ (4,'Sarita Kumari',21,2,3);
+
+ ---- multiple table join ---- 
+
+ select s.id,s.name,s.age,cr.course,c.city from student s
+ inner join courses cr
+ on s.courses = cr.crid
+ inner join city C
+ on s.city = c.cid
+ order by s.name;
+
+ select c.city,count(s.city) as total from student s
+ inner join city c
+ on s.city = c.cid
+ group by city
+ having total > 1;
