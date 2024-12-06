@@ -105,7 +105,7 @@ insert into sales_order_details values('O46865', 'P07868', 3, 3, 3150);
 insert into sales_order_details values('O46865', 'P07885', 3, 1, 5250);
 insert into sales_order_details values('O46865', 'P00001', 10, 10, 525);
 insert into sales_order_details values('O46865', 'P0345', 4, 4, 1050);
-insert into sales_order_details values('O19003', 'P03453', 2, 2, 1050);
+insert into sales_order_details values('O19003', 'P08865', 2, 2, 1050);
 insert into sales_order_details values('O19003', 'P06734', 1, 1, 12000);
 insert into sales_order_details values('O46866', 'P07965', 1, 0, 8400);
 insert into sales_order_details values('O19008', 'P00001', 10, 5, 525);
@@ -181,3 +181,191 @@ where CLIENT_NO = (select CLIENT_NO from client_master where STATE = 'Tamil Nadu
 delete from client_master
 where STATE = 'Tamil Nadu';
 */
+
+
+/* Join Exercise */
+
+--> 1.Find out the product, which have been sold to 'Ivan Bayross'.
+
+/* ANSI style*/
+
+select pm.description,sod.qty_disp,so.order_no,so.client_no,cm.name as client_name from product_master pm 
+inner join sales_order_details sod on sod.product_no = pm.product_no 
+inner join sales_order so on so.order_no = sod.order_no 
+inner join client_master cm on cm.client_no = so.client_no 
+where cm.name = 'Ivan Bayross';
+
++--------------+----------+----------+-----------+--------------+
+| description  | qty_disp | order_no | client_no | client_name  |
++--------------+----------+----------+-----------+--------------+
+| T-Shirts     |        4 | O19001   | C00001    | Ivan Bayross |
+| Denim Shirts |        1 | O19001   | C00001    | Ivan Bayross |
+| Pull Overs   |        1 | O19001   | C00001    | Ivan Bayross |
+| Skirts       |        2 | O19003   | C00001    | Ivan Bayross |
+| Cotton Jeans |        1 | O19003   | C00001    | Ivan Bayross |
++--------------+----------+----------+-----------+--------------+
+5 rows in set (0.00 sec)
+
+/*  Theta style */
+
+select pm.description,sod.qty_disp,so.order_no,so.client_no,cm.name as client_name from product_master pm 
+inner join sales_order_details sod on sod.product_no = pm.product_no 
+inner join sales_order so on so.order_no = sod.order_no 
+inner join client_master cm on cm.client_no = so.client_no
+where cm.name = 'Ivan Bayross';
+
++--------------+----------+----------+-----------+--------------+
+| description  | qty_disp | order_no | client_no | client_name  |
++--------------+----------+----------+-----------+--------------+
+| T-Shirts     |        4 | O19001   | C00001    | Ivan Bayross |
+| Denim Shirts |        1 | O19001   | C00001    | Ivan Bayross |
+| Pull Overs   |        1 | O19001   | C00001    | Ivan Bayross |
+| Skirts       |        2 | O19003   | C00001    | Ivan Bayross |
+| Cotton Jeans |        1 | O19003   | C00001    | Ivan Bayross |
++--------------+----------+----------+-----------+--------------+
+5 rows in set (0.00 sec)
+
+
+--> 2.Find out the products and their quantities that will have to be delivered in the current month.
+
+    /* ANSI style */
+
+-- here current month consider as a 06
+
+select pm.description,so.order_date,sod.qty_disp,so.order_status from sales_order so 
+inner join sales_order_details sod on so.order_no = sod.order_no
+inner join product_master pm on pm.product_no = sod.product_no
+where order_date like "%06%";
+
++--------------+------------+----------+--------------+
+| description  | order_date | qty_disp | order_status |
++--------------+------------+----------+--------------+
+| T-Shirts     | 2004-06-12 |        4 | In Process   |
+| Denim Shirts | 2004-06-12 |        1 | In Process   |
+| Pull Overs   | 2004-06-12 |        1 | In Process   |
+| T-Shirts     | 2004-06-25 |        0 | Cancelled    |
++--------------+------------+----------+--------------+
+4 rows in set (0.00 sec)
+
+    /* Theta style */
+
+select pm.description,so.order_date,sod.qty_disp,so.order_status from sales_order so,sales_order_details sod,product_master pm
+where so.order_no = sod.order_no and sod.product_no = pm.product_no
+and so.order_date like "%06%";
+
++--------------+------------+----------+--------------+
+| description  | order_date | qty_disp | order_status |
++--------------+------------+----------+--------------+
+| T-Shirts     | 2004-06-12 |        4 | In Process   |
+| Denim Shirts | 2004-06-12 |        1 | In Process   |
+| Pull Overs   | 2004-06-12 |        1 | In Process   |
+| T-Shirts     | 2004-06-25 |        0 | Cancelled    |
++--------------+------------+----------+--------------+
+4 rows in set (0.00 sec)
+
+--> 3.List the ProductNo and description of constantly sold products.
+
+        /* ANSI style */
+
+select distinct pm.description from sales_order so
+inner join sales_order_details sod on so.order_no = sod.order_no
+inner join product_master pm on sod.product_no = pm.product_no;
+
++--------------+
+| description  |
++--------------+
+| T-Shirts     |
+| Denim Shirts |
+| Pull Overs   |
+| Skirts       |
+| Cotton Jeans |
+| Trousers     |
+| Shirts       |
+| Lycra Tops   |
++--------------+
+8 rows in set (0.00 sec)
+
+        /* Theta style */
+
+select distinct pm.description from sales_order so, sales_order_details sod, product_master pm
+where so.order_no = sod.order_no and sod.product_no = pm.product_no ;
+
+--> 4.Find The names of clients who have purchased 'Trousers'.
+
+        /* ANSI style */
+
+select pm.description,cm.name as client_name from sales_order so
+inner join sales_order_details sod on so.order_no = sod.order_no
+inner join product_master pm on sod.product_no = pm.product_no
+inner join client_master cm on so.client_no = cm.client_no
+where pm.description = 'Trousers';
+
++-------------+---------------+
+| description | client_name   |
++-------------+---------------+
+| Trousers    | Chhaya Bankar |
++-------------+---------------+
+1 row in set (0.00 sec)
+
+        /* Theta style */
+
+select pm.description,cm.name as client_name from sales_order so,sales_order_details sod,product_master pm,client_master cm
+where so.order_no = sod.order_no and pm.product_no = sod.product_no and cm.client_no = so.client_no
+and description = 'Trousers';
+
++-------------+---------------+
+| description | client_name   |
++-------------+---------------+
+| Trousers    | Chhaya Bankar |
++-------------+---------------+
+1 row in set (0.00 sec)
+
+--> 5.List the Products and orders from customers who have orderded less than 5 units of 'Pull Overs'.
+
+    /* ANSI style*/
+
+select pm.description,cm.name as client_name,sod.qty_ordered from sales_order so
+inner join sales_order_details sod on so.order_no = sod.order_no
+inner join product_master pm on sod.product_no = pm.product_no
+inner join client_master cm on so.client_no = cm.client_no
+where pm.description = 'Pull Overs' and sod.qty_ordered < 5;
+
++-------------+---------------+-------------+
+| description | client_name   | qty_ordered |
++-------------+---------------+-------------+
+| Pull Overs  | Ivan Bayross  |           2 |
+| Pull Overs  | Chhaya Bankar |           3 |
++-------------+---------------+-------------+
+2 rows in set (0.00 sec)
+
+    /* Theta style*/
+
+select pm.description,cm.name as client_name,sod.qty_ordered from sales_order so,sales_order_details sod,product_master pm,client_master cm
+where so.order_no = sod.order_no and pm.product_no = sod.product_no and cm.client_no = so.client_no
+and description = 'Pull Overs' and sod.qty_ordered < 5;
+
+
+--> 6.Find the products and their quantities for the ordered by 'Ivan Bayross' and 'Mamta Muzumdar'.
+
+    /* ANSI style*/
+
+select pm.description from product_master pm
+where pm.product_no IN (
+	select pm.product_no from sales_order so
+    inner join sales_order_details sod on so.order_no = sod.order_no
+    inner join product_master pm on pm.product_no = sod.product_no
+    inner join client_master cm on cm.client_no = so.client_no
+    where cm.name = 'Ivan Bayross'
+) and pm.product_no IN (
+	select pm.product_no from sales_order so
+    inner join sales_order_details sod on so.order_no = sod.order_no
+    inner join product_master pm on pm.product_no = sod.product_no
+    inner join client_master cm on cm.client_no = so.client_no
+    where cm.name = 'Mamta Muzumdar'
+);
+
+    /* Theta style*/
+
+
+--> 7. Find the products and their quantities for the ordered placed by ClientNo 'C00001' and 'C00002'.
+
