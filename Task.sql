@@ -369,3 +369,7 @@ where pm.product_no IN (
 
 --> 7. Find the products and their quantities for the ordered placed by ClientNo 'C00001' and 'C00002'.
 
+select * from sales_order so
+inner join sales_order_details sod on sod.order_no = so.order_no
+where client_no IN ('C00001','C000002');
+-- where client_no = 'C00002';
