@@ -189,41 +189,35 @@ where STATE = 'Tamil Nadu';
 
 /* ANSI style*/
 
-select pm.description,sod.qty_disp,so.order_no,so.client_no,cm.name as client_name from product_master pm 
+select pm.description,cm.name as client_name from product_master pm 
 inner join sales_order_details sod on sod.product_no = pm.product_no 
 inner join sales_order so on so.order_no = sod.order_no 
 inner join client_master cm on cm.client_no = so.client_no 
 where cm.name = 'Ivan Bayross';
 
-+--------------+----------+----------+-----------+--------------+
-| description  | qty_disp | order_no | client_no | client_name  |
-+--------------+----------+----------+-----------+--------------+
-| T-Shirts     |        4 | O19001   | C00001    | Ivan Bayross |
-| Denim Shirts |        1 | O19001   | C00001    | Ivan Bayross |
-| Pull Overs   |        1 | O19001   | C00001    | Ivan Bayross |
-| Skirts       |        2 | O19003   | C00001    | Ivan Bayross |
-| Cotton Jeans |        1 | O19003   | C00001    | Ivan Bayross |
-+--------------+----------+----------+-----------+--------------+
-5 rows in set (0.00 sec)
++--------------+--------------+
+| description  | client_name  |
++--------------+--------------+
+| T-Shirts     | Ivan Bayross |
+| Denim Shirts | Ivan Bayross |
+| Pull Overs   | Ivan Bayross |
+| Cotton Jeans | Ivan Bayross |
++--------------+--------------+
+
 
 /*  Theta style */
 
-select pm.description,sod.qty_disp,so.order_no,so.client_no,cm.name as client_name from product_master pm 
-inner join sales_order_details sod on sod.product_no = pm.product_no 
-inner join sales_order so on so.order_no = sod.order_no 
-inner join client_master cm on cm.client_no = so.client_no
-where cm.name = 'Ivan Bayross';
+select pm.description,cm.name as client_name from sales_order so,sales_order_details sod,product_master pm,client_master cm
+where so.order_no = sod.order_no and sod.product_no = pm.product_no and cm.client_no = so.client_no and cm.name = 'Ivan Bayross';
 
-+--------------+----------+----------+-----------+--------------+
-| description  | qty_disp | order_no | client_no | client_name  |
-+--------------+----------+----------+-----------+--------------+
-| T-Shirts     |        4 | O19001   | C00001    | Ivan Bayross |
-| Denim Shirts |        1 | O19001   | C00001    | Ivan Bayross |
-| Pull Overs   |        1 | O19001   | C00001    | Ivan Bayross |
-| Skirts       |        2 | O19003   | C00001    | Ivan Bayross |
-| Cotton Jeans |        1 | O19003   | C00001    | Ivan Bayross |
-+--------------+----------+----------+-----------+--------------+
-5 rows in set (0.00 sec)
++--------------+--------------+
+| description  | client_name  |
++--------------+--------------+
+| T-Shirts     | Ivan Bayross |
+| Denim Shirts | Ivan Bayross |
+| Pull Overs   | Ivan Bayross |
+| Cotton Jeans | Ivan Bayross |
++--------------+--------------+
 
 
 --> 2.Find out the products and their quantities that will have to be delivered in the current month.
@@ -349,20 +343,20 @@ and description = 'Pull Overs' and sod.qty_ordered < 5;
 
     /* ANSI style*/
 
-select pm.description from product_master pm
-where pm.product_no IN (
-	select pm.product_no from sales_order so
-    inner join sales_order_details sod on so.order_no = sod.order_no
-    inner join product_master pm on pm.product_no = sod.product_no
-    inner join client_master cm on cm.client_no = so.client_no
-    where cm.name = 'Ivan Bayross'
-) and pm.product_no IN (
-	select pm.product_no from sales_order so
-    inner join sales_order_details sod on so.order_no = sod.order_no
-    inner join product_master pm on pm.product_no = sod.product_no
-    inner join client_master cm on cm.client_no = so.client_no
-    where cm.name = 'Mamta Muzumdar'
-);
+-- select pm.description from product_master pm
+-- where pm.product_no IN (
+-- 	select pm.product_no from sales_order so
+--     inner join sales_order_details sod on so.order_no = sod.order_no
+--     inner join product_master pm on pm.product_no = sod.product_no
+--     inner join client_master cm on cm.client_no = so.client_no
+--     where cm.name = 'Ivan Bayross'
+-- ) and pm.product_no IN (
+-- 	select pm.product_no from sales_order so
+--     inner join sales_order_details sod on so.order_no = sod.order_no
+--     inner join product_master pm on pm.product_no = sod.product_no
+--     inner join client_master cm on cm.client_no = so.client_no
+--     where cm.name = 'Mamta Muzumdar'
+-- );
 
     /* Theta style*/
 
