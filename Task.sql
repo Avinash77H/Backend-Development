@@ -226,36 +226,35 @@ where so.order_no = sod.order_no and sod.product_no = pm.product_no and cm.clien
 
 -- here current month consider as a 06
 
-select pm.description,so.order_date,sod.qty_disp,so.order_status from sales_order so 
+select pm.description,so.order_no,so.order_date,sod.qty_disp,so.order_status from sales_order so 
 inner join sales_order_details sod on so.order_no = sod.order_no
 inner join product_master pm on pm.product_no = sod.product_no
 where order_date like "%06%";
 
-+--------------+------------+----------+--------------+
-| description  | order_date | qty_disp | order_status |
-+--------------+------------+----------+--------------+
-| T-Shirts     | 2004-06-12 |        4 | In Process   |
-| Denim Shirts | 2004-06-12 |        1 | In Process   |
-| Pull Overs   | 2004-06-12 |        1 | In Process   |
-| T-Shirts     | 2004-06-25 |        0 | Cancelled    |
-+--------------+------------+----------+--------------+
++--------------+----------+------------+----------+--------------+
+| description  | order_no | order_date | qty_disp | order_status |
++--------------+----------+------------+----------+--------------+
+| T-Shirts     | O19001   | 2004-06-12 |        4 | In Process   |
+| Denim Shirts | O19001   | 2004-06-12 |        1 | In Process   |
+| Pull Overs   | O19001   | 2004-06-12 |        1 | In Process   |
+| T-Shirts     | O19002   | 2004-06-25 |        0 | Cancelled    |
++--------------+----------+------------+----------+--------------+
 4 rows in set (0.00 sec)
 
     /* Theta style */
 
-select pm.description,so.order_date,sod.qty_disp,so.order_status from sales_order so,sales_order_details sod,product_master pm
+select pm.description,so.order_no,so.order_date,sod.qty_disp,so.order_status from sales_order so,sales_order_details sod,product_master pm
 where so.order_no = sod.order_no and sod.product_no = pm.product_no
 and so.order_date like "%06%";
 
-+--------------+------------+----------+--------------+
-| description  | order_date | qty_disp | order_status |
-+--------------+------------+----------+--------------+
-| T-Shirts     | 2004-06-12 |        4 | In Process   |
-| Denim Shirts | 2004-06-12 |        1 | In Process   |
-| Pull Overs   | 2004-06-12 |        1 | In Process   |
-| T-Shirts     | 2004-06-25 |        0 | Cancelled    |
-+--------------+------------+----------+--------------+
-4 rows in set (0.00 sec)
++--------------+----------+------------+----------+--------------+
+| description  | order_no | order_date | qty_disp | order_status |
++--------------+----------+------------+----------+--------------+
+| T-Shirts     | O19001   | 2004-06-12 |        4 | In Process   |
+| Denim Shirts | O19001   | 2004-06-12 |        1 | In Process   |
+| Pull Overs   | O19001   | 2004-06-12 |        1 | In Process   |
+| T-Shirts     | O19002   | 2004-06-25 |        0 | Cancelled    |
++--------------+----------+------------+----------+--------------+
 
 --> 3.List the ProductNo and description of constantly sold products.
 
@@ -283,6 +282,19 @@ inner join product_master pm on sod.product_no = pm.product_no;
 
 select distinct pm.description from sales_order so, sales_order_details sod, product_master pm
 where so.order_no = sod.order_no and sod.product_no = pm.product_no ;
+
++--------------+
+| description  |
++--------------+
+| T-Shirts     |
+| Denim Shirts |
+| Pull Overs   |
+| Skirts       |
+| Cotton Jeans |
+| Trousers     |
+| Shirts       |
+| Lycra Tops   |
++--------------+
 
 --> 4.Find The names of clients who have purchased 'Trousers'.
 
@@ -338,32 +350,89 @@ select pm.description,cm.name as client_name,sod.qty_ordered from sales_order so
 where so.order_no = sod.order_no and pm.product_no = sod.product_no and cm.client_no = so.client_no
 and description = 'Pull Overs' and sod.qty_ordered < 5;
 
++-------------+---------------+-------------+
+| description | client_name   | qty_ordered |
++-------------+---------------+-------------+
+| Pull Overs  | Ivan Bayross  |           2 |
+| Pull Overs  | Chhaya Bankar |           3 |
++-------------+---------------+-------------+
 
 --> 6.Find the products and their quantities for the ordered by 'Ivan Bayross' and 'Mamta Muzumdar'.
 
     /* ANSI style*/
 
--- select pm.description from product_master pm
--- where pm.product_no IN (
--- 	select pm.product_no from sales_order so
---     inner join sales_order_details sod on so.order_no = sod.order_no
---     inner join product_master pm on pm.product_no = sod.product_no
---     inner join client_master cm on cm.client_no = so.client_no
---     where cm.name = 'Ivan Bayross'
--- ) and pm.product_no IN (
--- 	select pm.product_no from sales_order so
---     inner join sales_order_details sod on so.order_no = sod.order_no
---     inner join product_master pm on pm.product_no = sod.product_no
---     inner join client_master cm on cm.client_no = so.client_no
---     where cm.name = 'Mamta Muzumdar'
--- );
+select cm.name,pm.description,sod.qty_ordered from sales_order so 
+inner join sales_order_details sod on so.order_no = sod.order_no
+inner join product_master pm on pm.product_no = sod.product_no
+inner join client_master cm on cm.client_no = so.client_no
+where cm.name in ('Ivan Bayross', 'Mamta Muzumdar');
+
++----------------+--------------+-------------+
+| name           | description  | qty_ordered |
++----------------+--------------+-------------+
+| Ivan Bayross   | T-Shirts     |           4 |
+| Ivan Bayross   | Denim Shirts |           2 |
+| Ivan Bayross   | Pull Overs   |           2 |
+| Ivan Bayross   | Skirts       |           2 |
+| Ivan Bayross   | Cotton Jeans |           1 |
+| Mamta Muzumdar | T-Shirts     |          10 |
++----------------+--------------+-------------+
+6 rows in set (0.00 sec)
 
     /* Theta style*/
 
+select cm.name,pm.description,sod.qty_ordered from sales_order so, sales_order_details sod,product_master pm,client_master cm
+where so.order_no = sod.order_no and sod.product_no = pm.product_no and so.client_no = cm.client_no
+and cm.name in ('Ivan Bayross', 'Mamta Muzumdar');
+
++----------------+--------------+-------------+
+| name           | description  | qty_ordered |
++----------------+--------------+-------------+
+| Ivan Bayross   | T-Shirts     |           4 |
+| Ivan Bayross   | Denim Shirts |           2 |
+| Ivan Bayross   | Pull Overs   |           2 |
+| Ivan Bayross   | Skirts       |           2 |
+| Ivan Bayross   | Cotton Jeans |           1 |
+| Mamta Muzumdar | T-Shirts     |          10 |
++----------------+--------------+-------------+
+6 rows in set (0.00 sec)
 
 --> 7. Find the products and their quantities for the ordered placed by ClientNo 'C00001' and 'C00002'.
 
-select * from sales_order so
-inner join sales_order_details sod on sod.order_no = so.order_no
-where client_no IN ('C00001','C000002');
--- where client_no = 'C00002';
+    /* ANSI Style */
+select cm.name,pm.description,sod.qty_ordered from sales_order so 
+inner join sales_order_details sod on so.order_no = sod.order_no
+inner join product_master pm on pm.product_no = sod.product_no
+inner join client_master cm on cm.client_no = so.client_no
+where so.client_no in ('C00001','C00002');
+
++----------------+--------------+-------------+
+| name           | description  | qty_ordered |
++----------------+--------------+-------------+
+| Ivan Bayross   | T-Shirts     |           4 |
+| Ivan Bayross   | Denim Shirts |           2 |
+| Ivan Bayross   | Pull Overs   |           2 |
+| Ivan Bayross   | Skirts       |           2 |
+| Ivan Bayross   | Cotton Jeans |           1 |
+| Mamta Muzumdar | T-Shirts     |          10 |
++----------------+--------------+-------------+
+6 rows in set (0.00 sec)
+
+
+    /* Theta Style */
+
+select cm.name,pm.description,sod.qty_ordered from sales_order so, sales_order_details sod,product_master pm,client_master cm
+where so.order_no = sod.order_no and sod.product_no = pm.product_no and so.client_no = cm.client_no
+and cm.client_no in ('C00001','C00002');
+
++----------------+--------------+-------------+
+| name           | description  | qty_ordered |
++----------------+--------------+-------------+
+| Ivan Bayross   | T-Shirts     |           4 |
+| Ivan Bayross   | Denim Shirts |           2 |
+| Ivan Bayross   | Pull Overs   |           2 |
+| Ivan Bayross   | Skirts       |           2 |
+| Ivan Bayross   | Cotton Jeans |           1 |
+| Mamta Muzumdar | T-Shirts     |          10 |
++----------------+--------------+-------------+
+6 rows in set (0.00 sec)
