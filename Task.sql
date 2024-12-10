@@ -423,7 +423,7 @@ where so.client_no in ('C00001','C00002');
 
 select cm.name,pm.description,sod.qty_ordered from sales_order so, sales_order_details sod,product_master pm,client_master cm
 where so.order_no = sod.order_no and sod.product_no = pm.product_no and so.client_no = cm.client_no
-and cm.client_no in ('C00001','C00002');
+and cm.client_no in ('C00001','C00002'); 
 
 +----------------+--------------+-------------+
 | name           | description  | qty_ordered |
