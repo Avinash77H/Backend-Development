@@ -437,3 +437,24 @@ and cm.client_no in ('C00001','C00002');
 +----------------+--------------+-------------+
 6 rows in set (0.00 sec)
 
+
+
+/* group by  */
+
+--> print the description and totoal qty sold for each product.
+
+select pm.description,sum(sod.qty_disp) from product_master pm
+inner join sales_order_details sod 
+on pm.product_no = sod.product_no
+group by description;
+
+--> find the value of each product sold.
+
+    -- this query same as above query 
+
+--> calculated the average qty sold for each client that has maximum order value of 15000.00
+
+    
+
+
+--> find out the total of all the billed orders for the month of june(6).
