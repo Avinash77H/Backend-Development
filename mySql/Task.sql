@@ -454,7 +454,11 @@ group by description;
 
 --> calculated the average qty sold for each client that has maximum order value of 15000.00
 
+select cm.name,sum(sod.qty_disp),sum(sod.product_rate) as total_Price from client_master cm
+inner join sales_order so on cm.client_no = so.client_no
+inner join sales_order_details sod on so.order_no = sod.order_no
+group by cm.name,sod.qty_disp
+having total_price < 15000;
     
-
-
 --> find out the total of all the billed orders for the month of june(6).
+
