@@ -13,8 +13,8 @@ app.get("/",(request:Request,response:Response)=>{
     });
 });
 
-app.use('/api/users',userRouter)
+app.use('/api/users',userRouter);
 
 app.listen(port,hostName,()=>{
-    console.log(`express server run on http://${hostName}:${port}`)
-})
+    console.log(`express server run on http://${hostName}:${port}`);
+});
