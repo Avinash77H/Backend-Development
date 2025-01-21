@@ -1,5 +1,5 @@
-import express,{Application,Response,Request,Router} from 'express'
-import request from 'http';
+import {Response,Request,Router} from 'express'
+
 
 const userRouter:Router = Router();
 
