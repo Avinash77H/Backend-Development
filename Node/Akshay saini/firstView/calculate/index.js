@@ -1,5 +1,5 @@
-const {calculateSum} = require("./sum");
-const {multi} = require("./multi");
+const {calculateSum} = require("../calculate/sum");
+const {multi} = require("../calculate/multi");
 
 module.exports = {calculateSum,multi}
 
