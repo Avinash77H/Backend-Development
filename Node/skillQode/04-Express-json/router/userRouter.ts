@@ -1,26 +1,19 @@
 import express,{Application,Request,Response,Router} from 'express'
-import { request } from 'express'
+
+import * as userController from "../controller/userController";
 
 const userRouter:Router = Router();
 
 /**
  * usage: 
- * url : http://127.0.0.1:9999/api/users/home
+ * url : http://127.0.0.1:9999/api/users
  * method : GET
  */
-userRouter.get("/home",(request:Request,response:Response)=>{
-  response.json({msg:"hello, welcome Home"});
+userRouter.get("/",async(request:Request,response:Response)=>{
+  console.log("inside Router");
+  await userController.getAllUsers(request,response);
 });
 
-/**
- * usage : 
- * url : http://127.0.0.1:9999/api/users/insertUser
- * method : POST
- */
-userRouter.post("/insertUser",(request:Request,response:Response)=>{
-  response.json({
-    msg:"Record Inserted..."
-  });
-});
 
-export default userRouter;
+
+export default userRouter;  
