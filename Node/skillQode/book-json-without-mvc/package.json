@@ -2,9 +2,10 @@
   "name": "05-book-json",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"nodemon server.ts"
+    "start": "nodemon server.ts"
   },
   "keywords": [],
   "author": "",
