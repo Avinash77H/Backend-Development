@@ -1,6 +1,5 @@
 import express,{Application,Request,Response} from 'express'
 import userRouter from './Routes/userRouter';
-
 const hostName:string = '127.0.0.1';
 const port:number = 9999;
 
