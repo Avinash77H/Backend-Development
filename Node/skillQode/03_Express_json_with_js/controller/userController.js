@@ -6,7 +6,7 @@ export const getAllUser = async(request,response)=>{
         let userData = await UserUtil.getAllUserFromDB();
        return response.status(200).json(userData);
     }
-    catch(err){
-       return response.status(500).json("Server Error");
+    catch(error){
+       return response.status(500).json({msg:"Server Error"});
     }
 } 
