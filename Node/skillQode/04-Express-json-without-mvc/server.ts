@@ -14,7 +14,7 @@ app.get("/",(request:Request,response:Response)=>{
   });
 });
 
-// router configuration
+
 
 app.use("/api/users",userRouter);
 
