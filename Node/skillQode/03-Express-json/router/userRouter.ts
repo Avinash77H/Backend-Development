@@ -11,7 +11,6 @@ const userRouter:Router = Router();
  */
 
 userRouter.get("/",async(request:Request,response:Response)=>{
-  console.log("inside Router");
   await userController.getAllUsers(request,response);
 });
 

@@ -11,3 +11,6 @@ export const getAllUsers = async(request:Request,response:Response)=>{
     return response.status(500).json({msg:"Server Error"});
   }
 };
+
+
+
