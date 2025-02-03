@@ -8,7 +8,7 @@ const hostName: string = "127.0.0.1";
 const app: Application = express();
 
 const dbUrl: any = process.env.MONGO_DB_CLOUD_URL;
-const dbName: string | undefined = process.env.MONGO_DB_CLOUD_URL;
+const dbName: string | undefined = process.env.MONGO_DB_DATABASE;
 
 mongoose
   .connect(dbUrl, {
@@ -31,3 +31,4 @@ app.get("/", (request: Request, response: Response) => {
 app.listen(Number(port), hostName, () => {
   console.log(`Express Server is started at http://${hostName}:${port}`);
 });
+
